@@ -1,5 +1,6 @@
 package com.fluig.identity.swagger.service.model;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -8,4 +9,5 @@ import java.util.Optional;
 public interface ApiService {
 
     Optional<ApiDTO> findById(Integer id);
+    List<ApiDTO> findAll();
 }

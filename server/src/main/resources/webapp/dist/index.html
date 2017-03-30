@@ -65,44 +65,12 @@
   </defs>
 </svg>
 
-<div id="swagger-ui"></div>
-<div id="swagger-ui2"></div>
-
 <script src="./webapp/dist/swagger-ui-bundle.js"> </script>
 <script src="./webapp/dist/swagger-ui-standalone-preset.js"> </script>
-<script>
-window.onload = function() {
-  // Build a system
-  const ui = SwaggerUIBundle({
-    url: "http://petstore.swagger.io/v2/swagger.json",
-    dom_id: '#swagger-ui',
-    presets: [
-      SwaggerUIBundle.presets.apis,
-      SwaggerUIStandalonePreset
-    ],
-    plugins: [
-      SwaggerUIBundle.plugins.DownloadUrl
-    ],
-    layout: "StandaloneLayout"
-  })
-
-  const ui2 = SwaggerUIBundle({
-    url: "http://localhost:9002/api/swagger.json",
-    dom_id: '#swagger-ui2',
-    presets: [
-      SwaggerUIBundle.presets.apis,
-      SwaggerUIStandalonePreset
-    ],
-    plugins: [
-      SwaggerUIBundle.plugins.DownloadUrl
-    ],
-    layout: "StandaloneLayout"
-  })
-
-  window.ui = ui;
-  window.ui2 = ui2;
-}
-</script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+<script src="./webapp/dist/swagger-management.js"> </script>
 </body>
 
 </html>
