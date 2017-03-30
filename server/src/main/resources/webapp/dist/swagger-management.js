@@ -5,7 +5,7 @@
     function loadApis(){
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:8080/api/v1/apis',
+            url: 'http://10.80.81.96:8080/api/v1/apis',
             success: function(data){
                 if(data && data.length > 0){
                     apis = data;

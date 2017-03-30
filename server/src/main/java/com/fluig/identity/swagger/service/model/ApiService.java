@@ -1,5 +1,7 @@
 package com.fluig.identity.swagger.service.model;
 
+import com.fluig.identity.swagger.api.model.exception.BaseDaoException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +10,8 @@ import java.util.Optional;
  */
 public interface ApiService {
 
+    ApiDTO insert(ApiDTO dto) throws BaseDaoException;
+    void remove(Integer id) throws ApiException;
     Optional<ApiDTO> findById(Integer id);
     List<ApiDTO> findAll();
 }

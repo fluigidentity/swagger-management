@@ -1,2 +1,2 @@
 INSERT INTO APIS("ID", "URL", "DESCRIPTION") VALUES (1, 'http://petstore.swagger.io/v2/swagger.json', 'Swagger Example');
-INSERT INTO APIS("ID", "URL", "DESCRIPTION") VALUES (2, 'http://localhost:9002/api/swagger.json', 'Identity Core');
+INSERT INTO APIS("ID", "URL", "DESCRIPTION") VALUES (2, 'http://10.80.81.96:9002/api/swagger.json', 'Identity Core');
