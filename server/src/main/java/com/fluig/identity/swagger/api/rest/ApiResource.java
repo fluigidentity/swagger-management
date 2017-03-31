@@ -34,7 +34,7 @@ public class ApiResource {
     }
 
     @POST
-    public Response insert(@NotNull ApiDTO dto) throws BaseDaoException {
+    public Response insert(@NotNull ApiDTO dto) throws ApiException {
         dto = apiService.insert(dto);
         return Response.status(Response.Status.CREATED).entity(dto).build();
     }

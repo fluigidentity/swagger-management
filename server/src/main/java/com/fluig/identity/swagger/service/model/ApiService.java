@@ -10,7 +10,7 @@ import java.util.Optional;
  */
 public interface ApiService {
 
-    ApiDTO insert(ApiDTO dto) throws BaseDaoException;
+    ApiDTO insert(ApiDTO dto) throws ApiException;
     void remove(Integer id) throws ApiException;
     Optional<ApiDTO> findById(Integer id);
     List<ApiDTO> findAll();

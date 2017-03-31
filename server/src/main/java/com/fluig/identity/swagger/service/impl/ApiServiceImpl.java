@@ -33,14 +33,18 @@ public class ApiServiceImpl implements ApiService {
 
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public ApiDTO insert(ApiDTO dto) throws BaseDaoException {
+    public ApiDTO insert(ApiDTO dto) throws ApiException {
         ApiEntity entity = null;
+
+        if(dto.getId() != null){
+            throw new ApiException(ApiException.ID_MUST_BE_NULL);
+        }
 
         try {
             entity = apiDAO.insert(ConverterUtils.toEntity(dto));
         } catch (BaseDaoException e) {
             LOG.error("Error to insert object", e);
-            throw new BaseDaoException(ApiException.API_INSERT_ERROR, e);
+            throw new ApiException(ApiException.API_INSERT_ERROR, e);
         }
 
         return ConverterUtils.toDto(entity);
@@ -65,8 +69,6 @@ public class ApiServiceImpl implements ApiService {
     @Override
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public Optional<ApiDTO> findById(Integer id) {
-        LOG.info("findById - id: " + id);
-
         Optional<ApiEntity> entity = apiDAO.findById(id);
         if(entity.isPresent()){
             return Optional.of(ConverterUtils.toDto(entity.get()));

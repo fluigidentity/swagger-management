@@ -10,6 +10,7 @@ public class ApiException extends BaseException {
     public static final ErrorCode API_INSERT_ERROR = new ErrorCode("SM_API_0001", "Error to persist API.");
     public static final ErrorCode API_REMOVE_ERROR = new ErrorCode("SM_API_0002", "Error to remove API.");
     public static final ErrorCode API_NOT_FOUND = new ErrorCode("SM_API_0003", "API not found.");
+    public static final ErrorCode ID_MUST_BE_NULL = new ErrorCode("SM_API_0004", "Id must be null.");
 
     public ApiException(String code, String description, String details, Throwable cause) {
         super(code, description, details, cause);
