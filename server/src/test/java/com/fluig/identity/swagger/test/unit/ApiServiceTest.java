@@ -163,4 +163,66 @@ public class ApiServiceTest {
         assertThat(result, hasSize(1));
         assertThat(result.get(0).getId(), equalTo(1));
     }
+
+    @Test
+    public void updateIdMustNotBeNull(){
+        try {
+            service.update(new ApiDTO());
+            fail();
+        } catch (ApiException e) {
+            assertThat(e.getCode(), equalTo(ApiException.ID_MUST_NOT_BE_NULL.getCode()));
+        }
+    }
+
+    @Test
+    public void updateNotFound(){
+        ApiDTO dto = new ApiDTO();
+        dto.setId(1);
+
+        when(dao.findById(dto.getId())).thenReturn(Optional.empty());
+
+        try {
+            service.update(dto);
+            fail();
+        } catch (ApiException e) {
+            assertThat(e.getCode(), equalTo(ApiException.API_NOT_FOUND.getCode()));
+        }
+    }
+
+    @Test
+    public void updateBaseDaoException() throws BaseDaoException {
+        ApiDTO dto = new ApiDTO();
+        dto.setId(1);
+
+        when(dao.findById(dto.getId())).thenReturn(Optional.of(ConverterUtils.toEntity(dto)));
+        when(dao.update(any(ApiEntity.class))).thenThrow(new BaseDaoException(BaseDaoException.GENERIC_PERSISTENCE_ERROR));
+
+        try {
+            service.update(dto);
+            fail();
+        } catch (ApiException e) {
+            assertThat(e.getCode(), equalTo(ApiException.API_UPDATE_ERROR.getCode()));
+        }
+    }
+
+    @Test
+    public void update() throws BaseDaoException, ApiException {
+        ApiDTO dto = new ApiDTO();
+        dto.setId(1);
+        dto.setUrl("url");
+        dto.setDescription("description");
+
+        ApiEntity entity = ConverterUtils.toEntity(dto);
+        entity.setId(1);
+
+        ApiEntity newEntity = ConverterUtils.toEntity(dto);
+        newEntity.setUrl("new url");
+
+        when(dao.findById(dto.getId())).thenReturn(Optional.of(entity));
+        when(dao.update(any(ApiEntity.class))).thenReturn(newEntity);
+
+        ApiDTO result = service.update(dto);
+        assertThat(result, equalTo(dto));
+        assertThat(result.getDescription(), equalTo(newEntity.getDescription()));
+    }
 }

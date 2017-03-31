@@ -52,6 +52,30 @@ public class ApiServiceImpl implements ApiService {
 
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public ApiDTO update(ApiDTO dto) throws ApiException {
+        ApiEntity entity = null;
+
+        if(dto.getId() == null){
+            throw new ApiException(ApiException.ID_MUST_NOT_BE_NULL);
+        }
+
+        Optional<ApiEntity> result = apiDAO.findById(dto.getId());
+        if(!result.isPresent()){
+            throw new ApiException(ApiException.API_NOT_FOUND);
+        }
+
+        try {
+            entity = apiDAO.update(ConverterUtils.toEntity(dto));
+        } catch (BaseDaoException e) {
+            LOG.error("Error to update object", e);
+            throw new ApiException(ApiException.API_UPDATE_ERROR, e);
+        }
+
+        return ConverterUtils.toDto(entity);
+    }
+
+    @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void remove(Integer id) throws ApiException {
         try {
             Optional<ApiEntity> entity = apiDAO.findById(id);
